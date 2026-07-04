@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アルファ データビューア</title>
+<style>
+  html,body{background:#010101;color:#fff;font-family:-apple-system,"Hiragino Sans",sans-serif;margin:0;}
+  .state{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:18px;text-align:center;padding:20px;color:#9a9ab0;font-size:14px;line-height:1.7;}
+  .spinner{width:34px;height:34px;border:3px solid #2a2a3a;border-top-color:#FE2C55;border-radius:50%;animation:spin .9s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  a{color:#25F4EE;}
+</style>
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+<div class="state" id="st"><div class="spinner"></div><div>LINEで本人確認中…</div></div>
+<script>
+var LIFF_ID = '2010604003-8r5z6rdF';
+var VIEWER = 'https://script.google.com/macros/s/AKfycbw_wJptC-3s-E7atwoyym9k7AkskRDv57gUYtOD6VXTwgw1T6nXcu7Y61DMYSSbaLRGmA/exec';
+function fail(msg){ document.getElementById('st').innerHTML = '<div style="font-size:34px;">😢</div><div>'+msg+'</div>'; }
+liff.init({ liffId: LIFF_ID }).then(function(){
+  if(!liff.isLoggedIn()){ liff.login({ redirectUri: location.href }); return; }
+  var t = liff.getIDToken();
+  if(!t){ fail('本人確認トークンを取得できませんでした。<br>LINEアプリから開き直してください。'); return; }
+  location.replace(VIEWER + '?liff=1&idt=' + encodeURIComponent(t));
+}).catch(function(e){
+  fail('LINEとの接続に失敗しました。<br>LINEアプリから開き直してください。<br><span style="font-size:11px;">'+((e && e.message) || e)+'</span>');
+});
+</script>
+</body>
+</html>
