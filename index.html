@@ -17,11 +17,11 @@
 <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
 <body>
-<div class="state" id="st"><div class="spinner"></div><div>LINEで本人確認中…</div><div style="font-size:12px;">上手くいかないときはマネージャーに確認してください。</div></div>
+<div class="state" id="st"><div class="spinner"></div><div>LINEで本人確認中…</div></div>
 <script>
 var LIFF_ID = '2010604003-8r5z6rdF';
 var VIEWER = 'https://script.google.com/macros/s/AKfycbw_wJptC-3s-E7atwoyym9k7AkskRDv57gUYtOD6VXTwgw1T6nXcu7Y61DMYSSbaLRGmA/exec';
-function fail(msg){ document.getElementById('st').innerHTML = '<div style="font-size:34px;">😢</div><div>'+msg+'</div><div style="font-size:12px;">上手くいかないときはマネージャーに確認してください。</div>'; }
+function fail(msg){ document.getElementById('st').innerHTML = '<div style="font-size:34px;">😢</div><div>'+msg+'</div>'; }
 liff.init({ liffId: LIFF_ID }).then(function(){
   if(!liff.isLoggedIn()){ liff.login({ redirectUri: location.href }); return; }
   var t = liff.getIDToken();
